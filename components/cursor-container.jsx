@@ -12,6 +12,7 @@ const CursorContainer = React.createClass({
   },
   componentDidMount() {
     socket.on('othermousemove', this.handleOtherMouseMove);
+    socket.on('othermouseleave',this.handleOtherMouseLeave);
     document.addEventListener('mousemove', this.handleMouseMove);
   },
   componentWillUnmount() {
@@ -31,6 +32,9 @@ const CursorContainer = React.createClass({
       cursors[data.id] = {x: data.x, y: data.y};
       this.setState({cursors: cursors});
     }
+  },
+  handleOtherMouseLeave(data) {
+    console.log(data);
   },
   render() {
     let cursors = this.state.cursors;
