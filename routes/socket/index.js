@@ -5,6 +5,10 @@ module.exports = function(io) {
         socket.on('disconnect', function() {
             console.log('socket client disconnected');
         });
+
+        socket.on('mousemove', function(data) {
+            console.log(data);
+        });
     });
 }
 
