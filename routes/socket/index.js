@@ -3,6 +3,9 @@ module.exports = function(io) {
         console.log('socket client connected');
 
         socket.on('disconnect', function() {
+            
+            var data = socket.id; 
+            io.emit('othermouseleave',data);
             console.log('socket client disconnected');
         });
 
