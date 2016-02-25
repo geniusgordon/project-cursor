@@ -8,6 +8,9 @@ module.exports = {
         path: path.join(__dirname, 'public/javascripts/build/'),
         filename: 'bundle.js',
     },
+    externals: {
+        "socket.io": "io"
+    },
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
