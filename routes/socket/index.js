@@ -7,7 +7,7 @@ module.exports = function(io) {
         });
 
         socket.on('mousemove', function(data) {
-            console.log(data);
+          io.emit('othermousemove', data);
         });
     });
 }
