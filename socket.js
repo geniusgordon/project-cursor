@@ -8,6 +8,9 @@ module.exports = function(store) {
     io.on = function(e, fn) {
         io.io.on(e, fn);
     };
+    io.emit = function(tag, data) {
+        io.io.emit(tag, data);
+    };
 
     return io;
 };
