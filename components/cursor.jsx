@@ -15,7 +15,6 @@ const strHash = s => s.split("").reduce((a,b) => {
 }, 0);
 
 const Cursor = ({id, x, y}) => {
-  console.log(strHash(id));
     return <div 
       className="cursor"
       style={Object.assign({}, style, {

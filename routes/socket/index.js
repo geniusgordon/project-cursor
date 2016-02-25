@@ -3,8 +3,7 @@ module.exports = function(io) {
         console.log('socket client connected');
 
         socket.on('disconnect', function() {
-            
-            var data = socket.id; 
+            var data = {id: socket.client.conn.id};
             io.emit('othermouseleave',data);
             console.log('socket client disconnected');
         });

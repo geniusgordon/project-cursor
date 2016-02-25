@@ -27,18 +27,23 @@ const CursorContainer = React.createClass({
     });
   },
   handleOtherMouseMove(data) {
-    if (data.id != socket.id) {
+    if (data.id && data.id != socket.id) {
       let cursors = this.state.cursors;
       cursors[data.id] = {x: data.x, y: data.y};
       this.setState({cursors: cursors});
     }
   },
   handleOtherMouseLeave(data) {
-    console.log(data);
+    if (data.id) {
+      let cursors = this.state.cursors;
+      cursors[data.id] = null;
+      this.setState({cursors: cursors});
+    }
   },
   render() {
     let cursors = this.state.cursors;
     let c = Object.keys(cursors).map(key => {
+      if (!cursors[key]) return;
       let x = cursors[key].x * window.innerWidth;
       let y = cursors[key].y * window.innerHeight;
       return <Cursor key={key} id={key} x={x} y={y} />
