@@ -37,7 +37,7 @@ const CursorContainer = React.createClass({
     let c = Object.keys(cursors).map(key => {
       let x = cursors[key].x * window.innerWidth;
       let y = cursors[key].y * window.innerHeight;
-      return <Cursor key={key} x={x} y={y} />
+      return <Cursor key={key} id={key} x={x} y={y} />
     });
     return <div>{c}</div>;
   }
