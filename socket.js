@@ -1,12 +1,15 @@
 module.exports = function(store) {
     var io = {};
     var _io = require('socket.io')();
+    
+    // save socket for each socketid, so we can poke them in future,
+    var clients = {'1':'frank'};
     io.io = require('./config/socket')(_io, store);
     io.listen = function(server) {
         io.io.listen(server);
     };
     io.on = function(e, fn) {
-        io.io.on(e, fn);
+         io.io.on(e, fn);
     };
     io.emit = function(tag, data) {
         io.io.emit(tag, data);
