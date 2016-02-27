@@ -11,6 +11,7 @@ const CursorContainer = React.createClass({
     return {
       cursors: {},
       isPoked : false,
+      poker:'',
     };
   },
   componentDidMount() {
@@ -45,7 +46,11 @@ const CursorContainer = React.createClass({
     }
   },
   handlePokeByOther(data){
-    this.setState({isPoked : !this.state.isPoked});
+    this._alert && clearTimeout(this._alert);
+    this.setState({isPoked: true, poker : data});
+    this._alert = setTimeout(() => {
+      this.setState({isPoked : false});
+    }, 2500);
   },
   render() {
     let cursors = this.state.cursors;
@@ -55,7 +60,7 @@ const CursorContainer = React.createClass({
       let y = cursors[key].y * window.innerHeight;
       return <Cursor key={key} id={key} x={x} y={y} />
     });
-    return this.state.isPoked ? <div><AlertBlock/>{c}</div> : <div>{c}</div>;
+    return <div><AlertBlock poker={this.state.poker} alerton={this.state.isPoked} />{c}</div>;
   }
 });
 
