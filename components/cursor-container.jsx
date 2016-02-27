@@ -2,17 +2,22 @@ import React from 'react';
 import io from 'socket.io';
 import Cursor from './cursor';
 
+import AlertBlock from './alertblock';
+
 let socket = io.connect();
 
 const CursorContainer = React.createClass({
   getInitialState() {
     return {
-      cursors: {}
+      cursors: {},
+      isPoked : false,
+      poker:'',
     };
   },
   componentDidMount() {
     socket.on('othermousemove', this.handleOtherMouseMove);
     socket.on('othermouseleave',this.handleOtherMouseLeave);
+    socket.on('pokeother',this.handlePokeByOther);
     document.addEventListener('mousemove', this.handleMouseMove);
   },
   componentWillUnmount() {
@@ -40,6 +45,13 @@ const CursorContainer = React.createClass({
       this.setState({cursors: cursors});
     }
   },
+  handlePokeByOther(data){
+    this._alert && clearTimeout(this._alert);
+    this.setState({isPoked: true, poker : data});
+    this._alert = setTimeout(() => {
+      this.setState({isPoked : false});
+    }, 2500);
+  },
   render() {
     let cursors = this.state.cursors;
     let c = Object.keys(cursors).map(key => {
@@ -48,7 +60,7 @@ const CursorContainer = React.createClass({
       let y = cursors[key].y * window.innerHeight;
       return <Cursor key={key} id={key} x={x} y={y} />
     });
-    return <div>{c}</div>;
+    return <div><AlertBlock poker={this.state.poker} alerton={this.state.isPoked} />{c}</div>;
   }
 });
 
