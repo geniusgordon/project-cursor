@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     entry: [
-        './components/index.jsx'
+        './client/app.js'
     ],
     output: {
         path: path.join(__dirname, 'public/javascripts/build/'),
@@ -16,7 +16,7 @@ module.exports = {
     },
     module: {
         loaders: [{
-            test: /\.jsx$/,
+            test: /\.js$|\.jsx$/,
             loaders: ['babel'],
             exclude: /node_modules/,
             include: __dirname
