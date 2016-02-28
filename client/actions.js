@@ -1,7 +1,16 @@
+export const MOUSE_MOVE = 'MOUSE_MOVE';
 export const OTHER_MOUSE_MOVE = 'OTHER_MOUSE_MOVE';
 export const OTHER_MOUSE_LEAVE = 'OTHER_MOUSE_LEAVE';
+export const POKE = 'POKE';
 export const OTHER_POKE = 'OTHER_POKE';
 export const POKE_ALERT_FADEOUT = 'POKE_ALERT_FADEOUT';
+
+export function mouseMove(data) {
+  return {
+    type: MOUSE_MOVE,
+    data: data
+  }
+};
 
 export function otherMouseMove(data) {
   return {
@@ -12,10 +21,17 @@ export function otherMouseMove(data) {
 
 export function otherMouseLeave(data) {
   return {
-    type: otherMouseLeave,
+    type: OTHER_MOUSE_LEAVE,
     data: data
   }
 };
+
+export function poke(data) {
+  return {
+    type: POKE,
+    data: data
+  }
+}
 
 export function otherPoke(data) {
   return dispatch => {
@@ -27,7 +43,7 @@ export function otherPoke(data) {
       dispatch({
         type: POKE_ALERT_FADEOUT
       });
-    }, 1000);
+    }, 2500);
   }
 };
 

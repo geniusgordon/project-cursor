@@ -1,9 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import io from 'socket.io';
-import AlertBlock from './alertblock.jsx';
-
-let socket = io.connect();
 
 const style = {
   width: 10,
@@ -17,30 +12,17 @@ const strHash = s => s.split("").reduce((a,b) => {
   return (a & a) % 0xffffff;
 }, 0);
 
-const Cursor = React.createClass({
-    getInitialState(){
-        return{
-            isClicked : false, 
-        };
-    }, 
-    handleClick(){
-        socket.emit('pokeother',this.props.id);
-    },
-    render(){
-
-      return(
-          <div 
-          className="cursor"
-          style={Object.assign({}, style, {
-            left: this.props.x,
-            top: this.props.y,
-            backgroundColor: '#' + strHash(this.props.id).toString(16),
-          })}
-            onClick =  {this.handleClick}
-          ></div>
-          );  
-    }
-});
+const Cursor = ({x, y, id, onClick}) => (
+  <div
+    className="cursor"
+    style={Object.assign({}, style, {
+      left: x,
+      top: y,
+      backgroundColor: '#' + strHash(id).toString(16),
+    })}
+    onClick={onClick}
+  ></div>
+);
 
 export default Cursor;
 

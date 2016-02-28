@@ -1,9 +1,13 @@
-// import io from 'socket.io-client';
+import React from 'react';
+import {render} from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import {createSocket, socketMiddleware} from './socket';
 import * as actions from './actions';
 import reducer from './reducers';
+import CursorContainer from './containers';
 
 const loggerMiddleware = createLogger();
 
@@ -11,16 +15,17 @@ let store = createStore(
   reducer,
   applyMiddleware(
     thunkMiddleware,
+    socketMiddleware,
     loggerMiddleware
   )
 );
-store.dispatch(actions.otherMouseMove({
-  x: 1, y:2, id: 12345, url: 'abcde'
-}));
-store.dispatch(actions.otherMouseMove({
-  x: 3, y:4, id: 45678, url: 'qwert'
-}));
-store.dispatch(actions.otherPoke({
-  id: 123
-}));
+
+createSocket(store);
+
+render(
+  <Provider store={store}>
+    <CursorContainer />
+  </Provider>,
+  document.getElementById('root')
+);
 

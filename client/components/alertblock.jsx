@@ -1,36 +1,25 @@
 import React from 'react';
 
 const styles = {
-    alert_block : {
-        position: 'fixed',
-        padding:'5px',
-        background:'#B00',
-        color:'#FFF',
-        top: '10%',
-        height:'auto',
-        width:'auto',
-        cursor: 'pointer',
-        transition: 'all 0.5s ease-in-out',        
-    },
+  position: 'fixed',
+  padding: 5,
+  background: '#B00',
+  color: '#FFF',
+  top: '10%',
+  height: 'auto',
+  width: 'auto',
+  cursor: 'pointer',
+  transition: 'all 0.5s ease-in-out',        
 };
 
-const AlertBlock=React.createClass({
-    getInitialState(){
-        return{
-            isReplyed : false,
-        }
-    },
-    handleMouseClick(){
-        this.setState({
-            isReplyed : !this.state.isReplyed,
-        });
-    },
-    render(){
-        let left_dist = this.props.alerton ? '0':'-100%';
-        return <div className="alertblock" 
-                    style={Object.assign({},styles.alert_block,{left:left_dist,})}
-                >{this.props.poker} poke you ~ </div>
-    }
-});
+const AlertBlock = ({poke}) => {
+  let left = poke.isPoked ? {left: 0} : {left: '-100%'};
+  return (
+    <div
+      style={Object.assign({}, styles, left)}
+    >{poke.poker} poke you ~</div>
+  );
+};
 
 export default AlertBlock; 
+
