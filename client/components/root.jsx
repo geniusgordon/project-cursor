@@ -22,7 +22,9 @@ const Root = React.createClass({
     });
     return (
       <div>
-        <AlertBlock poke={this.props.poke} />
+        <AlertBlock poke={this.props.poke} 
+                    check={ (e) => {this.props.handleRespond(true)}} 
+                    cancel={ (e) => {this.props.handleRespond(false)}} />
         {c}
       </div>
     );
