@@ -20,6 +20,10 @@ export function createSocket(store) {
     if (socket.id != data.id)
       store.dispatch(actions.otherPoke(data));
   });
+  socket.on('otherrespond',data=>{
+    if (socket.id != data.id)
+      store.dispatch(actions.otherRespond(data));
+  });
 };
 
 export function socketMiddleware(store) {
@@ -34,6 +38,8 @@ export function socketMiddleware(store) {
       );
     } else if (action.type == actions.POKE) {
       socket.emit('poke', action.data);
+    } else if (action.type == actions.RESPOND_POKE){
+      socket.emit('respondpoke',Object.assign({},action.data));
     }
     return next(action);
   };

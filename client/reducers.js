@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {
   OTHER_MOUSE_MOVE, OTHER_MOUSE_LEAVE,
   OTHER_POKE, POKE_ALERT_FADEOUT,
-  RESPOND_POKE,
+  RESPOND_POKE,OTHER_RESPOND,
 } from './actions';
 
 function cursors(state={}, action) {
@@ -17,6 +17,15 @@ function cursors(state={}, action) {
     default:
       return state;
   }
+}
+
+function respond(state={},action){
+  switch (action.type){
+    case OTHER_RESPOND:
+        return Object.assign({},action.data);
+  default:
+    return state;
+    }
 }
 
 function poke(state={isPoked: false, poker: null, poke_respond:null}, action) {
@@ -45,6 +54,7 @@ function poke(state={isPoked: false, poker: null, poke_respond:null}, action) {
 }
 
 export default combineReducers({
+  respond,
   cursors,
   poke,
 });

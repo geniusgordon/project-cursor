@@ -1,7 +1,7 @@
 import React from 'react';
 import Cursor from './cursor';
 import AlertBlock from './alertblock';
-
+import ChatBox from './chatbox';
 const Root = React.createClass({
   componentDidMount() {
     document.addEventListener('mousemove', this.props.handleMouseMove);
@@ -23,9 +23,10 @@ const Root = React.createClass({
     return (
       <div>
         <AlertBlock poke={this.props.poke} 
-                    check={ (e) => {this.props.handleRespond(true)}} 
-                    cancel={ (e) => {this.props.handleRespond(false)}} />
+                    check={ (e) => {this.props.handleRespondPoke({response:true,poker:this.props.poke.poker})}} 
+                    cancel={ (e) => {this.props.handleRespondPoke({response:false})}} />
         {c}
+        <ChatBox  chatid={this.props.respond.id} response={this.props.respond.response}/>
       </div>
     );
   }
