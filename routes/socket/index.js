@@ -18,6 +18,12 @@ module.exports = function(io) {
             pokee.emit('otherpoke', {id: poker});
         });
 
+        socket.on('respondpoke',function(data){
+            var pokee = socket.client.conn.id;
+            // Pokee respond to poker whether accept or not
+            var poker = clients[data.poker];
+            poker.emit('otherrespond',Object.assign({},{response:data.response},{id:pokee})); 
+        });
         socket.on('mousemove', function(data) {
             io.emit('othermousemove', data);
         });

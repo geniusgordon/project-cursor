@@ -25,7 +25,13 @@ const mapDispatchToProps = dispatch => {
     },
     handleOtherPoke(data) {
       dispatch(actions.otherPoke(data));
-    }
+    },
+    handleRespondPoke(data){
+      dispatch(actions.respondPoke(data));
+    },
+    handleOtherRespond(data){
+      dispatch(actions.otherRespond(data));
+    },
   };
 };
 

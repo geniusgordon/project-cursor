@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
 import {
   OTHER_MOUSE_MOVE, OTHER_MOUSE_LEAVE,
-  OTHER_POKE, POKE_ALERT_FADEOUT
+  OTHER_POKE, POKE_ALERT_FADEOUT,
+  RESPOND_POKE,OTHER_RESPOND,
 } from './actions';
 
 function cursors(state={}, action) {
@@ -18,17 +19,34 @@ function cursors(state={}, action) {
   }
 }
 
-function poke(state={isPoked: false, poker: null}, action) {
+function respond(state={},action){
+  switch (action.type){
+    case OTHER_RESPOND:
+        return Object.assign({},action.data);
+  default:
+    return state;
+    }
+}
+
+function poke(state={isPoked: false, poker: null, poke_respond:null}, action) {
   switch (action.type) {
     case OTHER_POKE:
       return {
         isPoked: true,
-        poker: action.data.id
+        poker: action.data.id,
+        poke_respond:null
       };
     case POKE_ALERT_FADEOUT:
       return {
         isPoked: false,
-        poker: null
+        poker: null,
+        poke_respond:null
+      };
+    case RESPOND_POKE:
+      return {
+        isPoked: false,
+        poker: null,
+        poke_respond:action.data
       };
     default:
       return state;
@@ -36,7 +54,8 @@ function poke(state={isPoked: false, poker: null}, action) {
 }
 
 export default combineReducers({
+  respond,
   cursors,
-  poke
+  poke,
 });
 
